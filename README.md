@@ -37,11 +37,6 @@ The starter listens on port 8000 on address [0.0.0.0](0.0.0.0:8080).
 
 ![FastAPI-MongoDB starter](https://res.cloudinary.com/adeshina/image/upload/v1600180509/fopab9idhrjqeqds4izk.png)
 
-## Deployment
-
-[![Develop on Okteto](https://okteto.com/develop-okteto.svg)](https://cloud.okteto.com/deploy?repository=https://github.com/Youngestdev/fastapi-mongo)
-
-
 ## Contributing ?
 
 Fork the repo, make changes and send a PR. We'll review it together!
