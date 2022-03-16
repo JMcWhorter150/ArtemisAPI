@@ -6,7 +6,8 @@ MONGO_DETAILS = config('MONGO_DETAILS')
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 
-database = client.students
+database = client.artemis
 
-student_collection = database.get_collection('students_collection')
 admin_collection = database.get_collection('admins')
+city_collection = database.get_collection('city_count')
+state_collection = database.get_collection('state_count')
