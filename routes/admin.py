@@ -5,7 +5,7 @@ from passlib.context import CryptContext
 
 from database.database import admin_collection
 from auth.jwt_handler import signJWT
-from database.database import add_admin
+from controllers.admin import add_admin
 from models.admin import AdminModel
 
 router = APIRouter()
@@ -14,7 +14,6 @@ hash_helper = CryptContext(schemes=["bcrypt"])
 
 @router.post("/login")
 async def admin_login(admin_credentials: HTTPBasicCredentials = Body(...)):
-    # NEW CODE
     admin_user = await admin_collection.find_one({"email": admin_credentials.username}, {"_id": 0})
     if (admin_user):
         password = hash_helper.verify(
