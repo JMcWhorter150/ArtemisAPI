@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Depends
 
 from auth.jwt_bearer import JWTBearer
-from routes.student import router as StudentRouter
+from routes.state import router as StateRouter
+from routes.city import router as CityRouter
 from routes.admin import router as AdminRouter
 
 app = FastAPI()
@@ -14,4 +15,5 @@ async def read_root():
 
 
 app.include_router(AdminRouter, tags=["Administrator"], prefix="/admin")
-app.include_router(StudentRouter, tags=["Students"], prefix="/student", dependencies=[Depends(token_listener)])
+app.include_router(StateRouter, tags=["States"], prefix="/states", dependencies=[Depends(token_listener)])
+app.include_router(CityRouter, tags=["Cities"], prefix="/cities", dependencies=[Depends(token_listener)])
