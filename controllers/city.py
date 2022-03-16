@@ -6,7 +6,7 @@ async def query_city_counts(filter, options) -> dict:
 
 async def query_city_ads(city, date_from, date_to) -> dict:
     ads = 0
-    async for ad in city_collection.find({"city": city, "date": {"$gte": date_from, "$lt": date_to}}):
+    async for ad in city_collection.find({"city": city, "date": {"$gte": date_from.strftime('%Y-%m-%d'), "$lt": date_to.strftime('%Y-%m-%d')}}):
         ads += ad['ad_count']
     return {
         'city': city,
@@ -17,7 +17,7 @@ async def query_city_ads(city, date_from, date_to) -> dict:
 
 async def query_city_phones(city, date_from, date_to) -> dict:
     phones = 0
-    async for phone in city_collection.find({"city": city, "date": {"$gte": date_from, "$lt": date_to}}):
+    async for phone in city_collection.find({"city": city, "date": {"$gte": date_from.strftime('%Y-%m-%d'), "$lt": date_to.strftime('%Y-%m-%d')}}):
         phones += phone['phone_count']
     return {
         'city': city,
@@ -28,7 +28,7 @@ async def query_city_phones(city, date_from, date_to) -> dict:
 
 async def query_city_emails(city, date_from, date_to) -> dict:
     emails = 0
-    async for email in city_collection.find({"city": city, "date": {"$gte": date_from, "$lt": date_to}}):
+    async for email in city_collection.find({"city": city, "date": {"$gte": date_from.strftime('%Y-%m-%d'), "$lt": date_to.strftime('%Y-%m-%d')}}):
         emails += email['email_count']
     return {
         'city': city,

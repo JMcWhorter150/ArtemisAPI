@@ -6,7 +6,7 @@ async def query_state_counts(filter, options) -> dict:
 
 async def query_state_ads(state, date_from, date_to) -> dict:
     ads = 0
-    async for ad in state_collection.find({"state": state, "date": {"$gte": date_from, "$lt": date_to}}):
+    async for ad in state_collection.find({"state": state, "date": {"$gte": date_from.strftime('%Y-%m-%d'), "$lt": date_to.strftime('%Y-%m-%d')}}):
         ads += ad['ad_count']
     return {
         'state': state,
@@ -17,7 +17,7 @@ async def query_state_ads(state, date_from, date_to) -> dict:
 
 async def query_state_phones(state, date_from, date_to) -> dict:
     phones = 0
-    async for phone in state_collection.find({"state": state, "date": {"$gte": date_from, "$lt": date_to}}):
+    async for phone in state_collection.find({"state": state, "date": {"$gte": date_from.strftime('%Y-%m-%d'), "$lt": date_to.strftime('%Y-%m-%d')}}):
         phones += phone['phone_count']
     return {
         'state': state,
@@ -28,7 +28,7 @@ async def query_state_phones(state, date_from, date_to) -> dict:
 
 async def query_state_emails(state, date_from, date_to) -> dict:
     emails = 0
-    async for email in state_collection.find({"state": state, "date": {"$gte": date_from, "$lt": date_to}}):
+    async for email in state_collection.find({"state": state, "date": {"$gte": date_from.strftime('%Y-%m-%d'), "$lt": date_to.strftime('%Y-%m-%d')}}):
         emails += email['email_count']
     return {
         'state': state,

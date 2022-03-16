@@ -3,15 +3,11 @@ from enum import Enum
 from pydantic import BaseModel, Field
 from datetime import date
 
-class SortEnum(str, Enum):
-    asc = 'asc'
-    desc = 'desc'
-
 class DateQueryModel(BaseModel):
-    gt: date = Field(alias='$gt')
-    lt: date = Field(alias='$lt')
-    gte: date = Field(alias='$gte')
-    lte: date = Field(alias='$lte')
+    gt: date = Field(default=None, alias='$gt')
+    lt: date = Field(default=None, alias='$lt')
+    gte: date = Field(default=None, alias='$gte')
+    lte: date = Field(default=None, alias='$lte')
 
     class Config:
         schema_extra = {
@@ -22,10 +18,10 @@ class DateQueryModel(BaseModel):
         }
 
 class NumberQueryModel(BaseModel):
-    gt: Union[int, float] = Field(alias='$gt')
-    lt: Union[int, float] = Field(alias='$lt')
-    gte: Union[int, float] = Field(alias='$gte')
-    lte: Union[int, float] = Field(alias='$lte')
+    gt: Union[int, float, None] = Field(alias='$gt')
+    lt: Union[int, float, None] = Field(alias='$lt')
+    gte: Union[int, float, None] = Field(alias='$gte')
+    lte: Union[int, float, None] = Field(alias='$lte')
 
     class Config:
         schema_extra = {
@@ -38,11 +34,11 @@ class NumberQueryModel(BaseModel):
 
 class FilterModel(BaseModel):
     city: str = Field(...)
-    date_field: Union[date, DateQueryModel] = Field(alias="date")
-    ad_count: Union[int, NumberQueryModel] = Field()
-    avg_age: Union[float, int, NumberQueryModel] = Field()
-    email_count: Union[int, NumberQueryModel] = Field()
-    phone_count: Union[int, NumberQueryModel] = Field()
+    date_field: Union[date, DateQueryModel, None] = Field(alias="date")
+    ad_count: Union[int, NumberQueryModel, None] = Field()
+    avg_age: Union[float, int, NumberQueryModel, None] = Field()
+    email_count: Union[int, NumberQueryModel, None] = Field()
+    phone_count: Union[int, NumberQueryModel, None] = Field()
 
     class Config:
         schema_extra = {
@@ -64,7 +60,8 @@ class FilterModel(BaseModel):
         }
 
 class OptionModel(BaseModel):
-    sortBy: SortEnum = Field()
+    # TODO: need validation in form key:asc or key:desc as str
+    sortBy: str = Field()
     limit: int = Field()
     page: int = Field()
     skip: int = Field()
@@ -83,3 +80,7 @@ class CityRequest(BaseModel):
                 "date_to": "2022-03-01"
             }
         }
+
+class CityCountBody(BaseModel):
+    filter: FilterModel = Field(...)
+    options: OptionModel = Field(...)
